@@ -1,0 +1,43 @@
+div.tile {
+  float:left;
+  padding: 128px 0px 0px 0px;
+  background: url(minesweeper_tiles.jpg) no-repeat;
+  width: 128px;
+}
+
+div.hidden {
+  background-position: 0px 0px;
+}
+div.flagged {
+  background-position: -128px 0px;
+}
+div.bomb {
+  background-position: -256px 0px;
+}
+div.empty {
+  background-position: -384px 0px;
+}
+div.one {
+  background-position: 0px -128px;
+}
+div.two {
+  background-position: -128px -128px;
+}
+div.three {
+  background-position: -256px -128px;
+}
+div.four {
+  background-position: -384px -128px;
+}
+div.five {
+  background-position: 0px -256px;
+}
+div.six {
+  background-position: -128px -256px;
+}
+div.seven {
+  background-position: -256px -256px;
+}
+div.eight {
+  background-position: -384px -256px;
+}

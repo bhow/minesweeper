@@ -2,17 +2,20 @@
 <head>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script type="text/javascript" src="http://cloud.github.com/downloads/emberjs/ember.js/ember-0.9.4.min.js"></script>
+  <link rel="stylesheet" href="minesweeper.css" type="text/css" />
 </head>
 <body>
   <script src="minesweeper.js"></script>
   <h1>minesweeper</h1>
   <script type="text/x-handlebars" data-template-name="board-view">
-    Board
+    {{#each tileArray}}
+      <div>&nbsp;
+        {{#each this}}
+          {{#view Minesweeper.TileView tileBinding="this" classBinding="tileCommonStyle tileStyle"}}
+          {{/view}}
+        {{/each}}
+      </div>
+    {{/each}}
   </script>
-  <script type="text/x-handlebars" data-template-name="single-tile-view">
-    <div class="tile">a</div>
-  </script>
-  <div>a</div>
-  <div>b</div>
 </body>
 </html>
