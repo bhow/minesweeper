@@ -7,9 +7,16 @@
 <body>
   <script src="minesweeper.js"></script>
   <h1>minesweeper</h1>
+  <script type="text/x-handlebars" data-template-name="menu-view">
+    {{#view Em.Button
+      target="Minesweeper.minesweeperController"
+      action="clearCompletedTodos"}}
+      Cheat
+    {{/view}}  
+  </script>
   <script type="text/x-handlebars" data-template-name="board-view">
     {{#each tileArray}}
-      <div class="row">
+      <div class="row" oncontextmenu="javascript:return false;">
         {{#each this}}
           {{#view Minesweeper.TileView tileBinding="this" classBinding="tileCommonStyle tileStyle"}}
           {{/view}}

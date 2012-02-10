@@ -1,3 +1,7 @@
+/*
+  Author: Brian How
+*/
+
 Array.prototype.contains = function(obj) {
   for (i in this) {
     if (this[i] === obj) return true;
@@ -113,6 +117,9 @@ Minesweeper.Board = Em.Object.extend({
       surroundingTiles.push(this.get('tileArray')[row][column+1]);
     }
     return surroundingTiles;
+  },
+
+  toggleCheat: function() {
   }
 });
 
@@ -120,6 +127,7 @@ Minesweeper.Tile = Em.Object.extend({
   hidden: true, // content of this tile has not been exposed
   flagged: false, // user has flagged this as a bomb
   containsBomb: false,
+  peeking: false, // user is cheating and can see underlying contents 
   bombTouchCount: 0,
   row: 0,
   column: 0,
@@ -138,7 +146,6 @@ Minesweeper.Tile = Em.Object.extend({
       }
     }
     if (this.get('containsBomb')) {
-      console.log(this.get('containsBomb'));
       return "bomb";
     }
     if (this.get('bombTouchCount') === 0) {
@@ -153,10 +160,16 @@ Minesweeper.Tile = Em.Object.extend({
 Minesweeper.minesweeperController = Ember.Object.create({
   board: Minesweeper.Board.create(),
   start: function() {
-    this.board.reset(16, 32);
+    this.board.reset(8, 10);
   },
   clickTile: function(tile) {
     this.board.revealTile(tile);
+  },
+  flagTile: function(tile) {
+    tile.flag();
+  },
+  toggleCheat: function() {
+    this.board.toggleCheat();
   }
 });
 
@@ -176,9 +189,16 @@ Minesweeper.TileView = Ember.View.extend({
   tile: null,
   tileStyleBinding: 'this.tile.style',
   tileCommonStyle: 'tile',
-  click: function(evt) {
-    Minesweeper.minesweeperController.clickTile(this.tile);
+  mouseDown: function(evt) {
+    if (evt.button === 0) {
+      Minesweeper.minesweeperController.clickTile(this.tile);
+    } else if (evt.button === 2) {
+      Minesweeper.minesweeperController.flagTile(this.tile);
+    }
   },
+});
+
+Minesweeper.MenuView = Ember.view.create({
 });
 
 Minesweeper.BoardView.append();
