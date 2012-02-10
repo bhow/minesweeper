@@ -175,6 +175,7 @@ Minesweeper.Tile = Em.Object.extend({
 Minesweeper.minesweeperController = Ember.Object.create({
   board: Minesweeper.Board.create(),
   gameOver: false,
+  newBoardSize: 8,
   start: function() {
     this.board.reset(8, 10);
   },
@@ -199,6 +200,12 @@ Minesweeper.minesweeperController = Ember.Object.create({
   validate: function() {
     
   }
+});
+
+Minesweeper.gameOptionsController = Ember.ArrayController.create({
+  content: [Ember.Object.create({name:'Small (8x8)', size: 8}),
+                        Ember.Object.create({name:'Small (8x8)', size: 16}),
+                        Ember.Object.create({name:'Small (8x8)', size: 16})]
 });
 
 Minesweeper.minesweeperController.start();

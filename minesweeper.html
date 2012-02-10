@@ -8,6 +8,12 @@
   <script src="minesweeper.js"></script>
   <h1>minesweeper</h1>
   <script type="text/x-handlebars" data-template-name="menu-view">
+    {{#view Em.Select
+       contentBinding="Minesweeper.gameOptionsController"
+       selectionBinding="Minesweeper.minesweeperController.newBoardSize"
+       optionLabelPath="content.name"
+       optionValuePath="content.size"}}
+    {{/view}}
     {{#view Em.Button
       target="Minesweeper.minesweeperController"
       action="toggleCheat"}}
