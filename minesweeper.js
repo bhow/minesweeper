@@ -29,10 +29,11 @@ Minesweeper.Board = Em.Object.extend({
         randomIndex = (Math.floor(Math.random() * totalTiles));
       } while (bombIndices.length < bombCount)
     }
-    console.log(bombIndices);
+    //console.log(bombIndices);
     this.set('size', size);
     this.set('tileArray', new Array(size));
     
+    // create tiles and set up bombs
     for (var i=0; i<size; i++) {
       this.tileArray[i] = new Array(size);
       for (var j=0; j<size; j++) {
@@ -163,7 +164,7 @@ Minesweeper.minesweeperController.start();
 
 // views
 Minesweeper.StatView = Ember.View.extend({
-}
+});
 
 Minesweeper.BoardView = Ember.View.create({
   templateName: 'board-view',
