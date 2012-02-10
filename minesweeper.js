@@ -16,13 +16,14 @@ Minesweeper.Board = Em.Object.extend({
   tileArray: null,
   size: 0,
   bombTileArray: null,  
+  revealedTiles: new Array(),  
+  flaggedTileCount: 0,  
 
   // initialize board
   reset: function(size, bombCount) {
     
     // generate bomb positions
     var bombIndices = new Array();
-    
     var totalTiles = size * size;
     while (bombIndices.length < bombCount) {
       var randomIndex = (Math.floor(Math.random() * totalTiles));
@@ -33,10 +34,9 @@ Minesweeper.Board = Em.Object.extend({
         randomIndex = (Math.floor(Math.random() * totalTiles));
       } while (bombIndices.length < bombCount)
     }
-    //console.log(bombIndices);
     this.set('size', size);
     this.set('tileArray', new Array(size));
-    
+    this.set('bombTileArray', new Array());
     // create tiles and set up bombs
     for (var i=0; i<size; i++) {
       this.tileArray[i] = new Array(size);
@@ -45,6 +45,7 @@ Minesweeper.Board = Em.Object.extend({
         var position = (i * size) + j;
         if (bombIndices.contains(position)) {
           tile.set('containsBomb', true);
+          this.get('bombTileArray').push(tile);
         }
         this.addTileToBoard(i, j, tile);
       }
@@ -62,6 +63,7 @@ Minesweeper.Board = Em.Object.extend({
       return;
     }
     tile.set('hidden', false);
+    this.get('revealedTiles').push(tile);
     if (tile.get('containsBomb')) {
       // boom - end game here
     }
@@ -120,6 +122,19 @@ Minesweeper.Board = Em.Object.extend({
   },
 
   toggleCheat: function() {
+    var bombs = this.get('bombTileArray');
+    for (var i=0; i < this.bombTileArray.length; i++) {
+      bombs[i].set('peeking', !bombs[i].get('peeking'));
+    }
+  },
+  
+  checkWin: function() {
+    var size = this.get('tileArray').length;
+    var totalNonBombTiles = (size * size) - this.get('bombTileArray').length;
+    if (totalNonBombTiles === revealedTiles.length) {
+      return true;
+    }
+    return false;
   }
 });
 
@@ -138,7 +153,7 @@ Minesweeper.Tile = Em.Object.extend({
     }
   },
   style: function() {
-    if (this.get('hidden')) {
+    if (this.get('hidden') && !this.get('peeking')) {
       if (this.get('flagged')) {
         return "flagged";
       } else {
@@ -153,33 +168,43 @@ Minesweeper.Tile = Em.Object.extend({
     }
     var numbers = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight"];
     return numbers[this.get('bombTouchCount')];
-  }.property('hidden', 'flagged', 'containsBomb', 'bombTouchCount')
+  }.property('hidden', 'flagged', 'containsBomb', 'bombTouchCount', 'peeking')
 });
 
 // controllers
 Minesweeper.minesweeperController = Ember.Object.create({
   board: Minesweeper.Board.create(),
+  gameOver: false,
   start: function() {
     this.board.reset(8, 10);
   },
   clickTile: function(tile) {
-    this.board.revealTile(tile);
+    if (!this.get('gameOver')) {
+      this.board.revealTile(tile);
+      if(this.board.checkWin()) {
+        this.set('gameOver', true);
+      }
+    }
   },
   flagTile: function(tile) {
-    tile.flag();
+    if (!this.get('gameOver')) {
+      tile.flag();
+    }
   },
   toggleCheat: function() {
-    this.board.toggleCheat();
+    if (!this.get('gameOver')) {
+      this.board.toggleCheat();
+    }
+  },
+  validate: function() {
+    
   }
 });
 
 Minesweeper.minesweeperController.start();
 
 // views
-Minesweeper.StatView = Ember.View.extend({
-});
-
-Minesweeper.BoardView = Ember.View.create({
+Minesweeper.boardView = Ember.View.create({
   templateName: 'board-view',
   tileArray: Minesweeper.minesweeperController.board.get('tileArray'),
 });
@@ -198,8 +223,10 @@ Minesweeper.TileView = Ember.View.extend({
   },
 });
 
-Minesweeper.MenuView = Ember.view.create({
+Minesweeper.menuView = Ember.View.create({
+  templateName: 'menu-view',
 });
+Minesweeper.menuView.append();
 
-Minesweeper.BoardView.append();
+Minesweeper.boardView.append();
 

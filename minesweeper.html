@@ -10,11 +10,17 @@
   <script type="text/x-handlebars" data-template-name="menu-view">
     {{#view Em.Button
       target="Minesweeper.minesweeperController"
-      action="clearCompletedTodos"}}
-      Cheat
-    {{/view}}  
+      action="toggleCheat"}}
+      Toggle Cheat
+    {{/view}}
+    {{#view Em.Button
+      target="Minesweeper.minesweeperController"
+      action="validate"}}
+      Validate
+    {{/view}}
   </script>
   <script type="text/x-handlebars" data-template-name="board-view">
+    <div class="board">
     {{#each tileArray}}
       <div class="row" oncontextmenu="javascript:return false;">
         {{#each this}}
@@ -23,6 +29,11 @@
         {{/each}}
       </div>
     {{/each}}
+    </div>
+    <div class="win">YOU WIN!</div> 
+  </script>
+  <script type="text/x-handlebars" data-template-name="status-view">
+    <div class="win">YOU WIN!</div> 
   </script>
 </body>
 </html>

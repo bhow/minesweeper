@@ -1,5 +1,8 @@
+body { 
+  text-align: center; 
+}
 div.row {
-  clear: left; 
+  clear: left;
 }
 
 div.tile {
@@ -45,4 +48,12 @@ div.seven {
 }
 div.eight {
   background-position: -96px -96px;
+}
+
+div.win {
+  clear: left;
+}
+
+div.board {
+  text-align: center;
 }
