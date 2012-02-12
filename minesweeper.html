@@ -8,6 +8,8 @@
   <script src="minesweeper.js"></script>
   <h1>minesweeper</h1>
   <script type="text/x-handlebars" data-template-name="menu-view">
+  </script>
+  <script type="text/x-handlebars" data-template-name="board-view">
     {{#view Em.Select
        contentBinding="Minesweeper.gameOptionsController"
        selectionBinding="Minesweeper.minesweeperController.newBoardSize"
@@ -24,8 +26,7 @@
       action="validate"}}
       Validate
     {{/view}}
-  </script>
-  <script type="text/x-handlebars" data-template-name="board-view">
+
     <div class="board">
     {{#each tileArray}}
       <div class="row" oncontextmenu="javascript:return false;">
