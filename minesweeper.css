@@ -9,7 +9,7 @@ div.tile {
   float: left;
   padding: 32px 0px 0px 0px;
   background: url(minesweeper_tiles.jpg) no-repeat;
-  background-size: 128px 96px;
+  background-size: 128px 128px;
   width: 32px;
 }
 
@@ -38,7 +38,7 @@ div.four {
   background-position: -96px -32px;
 }
 div.five {
-  background-position: 0px -96px;
+  background-position: 0px -64px;
 }
 div.six {
   background-position: -32px -96px;
@@ -48,6 +48,10 @@ div.seven {
 }
 div.eight {
   background-position: -96px -96px;
+}
+
+div.exploded {
+  background-position: 0px -96px;
 }
 
 div.win {
