@@ -54,7 +54,12 @@ div.exploded {
   background-position: 0px -96px;
 }
 
-div.win {
+div.status {
+  clear: left;
+}
+
+div.buttons {
+  margin: 10px 0px 0px 0px;
   clear: left;
 }
 

@@ -10,6 +10,12 @@
   <script type="text/x-handlebars" data-template-name="menu-view">
   </script>
   <script type="text/x-handlebars" data-template-name="board-view">
+    {{#view Ember.Select
+       contentBinding="Minesweeper.minesweeperController.sizes"
+       selectionBinding="Minesweeper.minesweeperController.newBoardSize"
+       optionLabelPath="content.name"
+       optionValuePath="content.size"}}
+    {{/view}}
     {{#view Em.Select
        contentBinding="Minesweeper.gameOptionsController"
        selectionBinding="Minesweeper.minesweeperController.newBoardSize"
@@ -18,17 +24,24 @@
     {{/view}}
     {{#view Em.Button
       target="Minesweeper.minesweeperController"
-      action="toggleCheat"}}
-      Toggle Cheat
+      action="newGame"}}
+      New Game
     {{/view}}
-    {{#view Em.Button
-      target="Minesweeper.minesweeperController"
-      action="validate"}}
-      Validate
-    {{/view}}
-
+    <div class="buttons">
+      {{#view Em.Button
+        target="Minesweeper.minesweeperController"
+        action="toggleCheat"}}
+        Toggle Cheat
+      {{/view}}
+      {{#view Em.Button
+        target="Minesweeper.minesweeperController"
+        action="validate"}}
+        Validate
+      {{/view}}
+      Bombs: {{board.bombsLeftToFlag}} 
+    </div>
     <div class="board">
-    {{#each tileArray}}
+    {{#each board.tileArray}}
       <div class="row" oncontextmenu="javascript:return false;">
         {{#each this}}
           {{#view Minesweeper.TileView tileBinding="this" classBinding="tileCommonStyle tileStyle"}}
@@ -37,10 +50,7 @@
       </div>
     {{/each}}
     </div>
-    <div class="win">YOU WIN!</div> 
-  </script>
-  <script type="text/x-handlebars" data-template-name="status-view">
-    <div class="win">YOU WIN!</div> 
+    <div class="status">{{board.gameState}}</div> 
   </script>
 </body>
 </html>
