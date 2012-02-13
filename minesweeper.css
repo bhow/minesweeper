@@ -41,18 +41,21 @@ div.five {
   background-position: 0px -64px;
 }
 div.six {
-  background-position: -32px -96px;
+  background-position: -32px -64px;
 }
 div.seven {
-  background-position: -64px -96px;
+  background-position: -64px -64px;
 }
 div.eight {
-  background-position: -96px -96px;
+  background-position: -96px -64px;
 }
-
 div.exploded {
   background-position: 0px -96px;
 }
+div.wrongFlag {
+  background-position: -32px -96px;
+}
+
 
 div.status {
   clear: left;

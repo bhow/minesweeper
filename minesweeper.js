@@ -214,6 +214,7 @@ Minesweeper.Tile = Em.Object.extend({
   // computed css class for tile state
   style: function() {
     if (!this.get('hidden') && this.get('flagged') && !this.get('containsBomb')) {
+      console.log("JEJE");
       return "wrongFlag";
     } 
     if (this.get('exploded')) {
