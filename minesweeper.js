@@ -7,9 +7,9 @@ Array.prototype.contains = function(obj) {
     if (this[i] === obj) return true;
   }
   return false;
-}
+};
 
-var gameStateEnum = {IN_PROGRESS: '', WON: 'You win! :)', LOST: 'You lose :('}
+var gameStateEnum = {IN_PROGRESS: '', WON: 'You win! :)', LOST: 'You lose :('};
 
 Minesweeper = Ember.Application.create();
 
