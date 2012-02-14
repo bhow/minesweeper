@@ -7,18 +7,16 @@
 <body>
     <h1>minesweeper</h1>
     <script type="text/x-handlebars" data-template-name="board-view">
-        {{#view Ember.Select
+        {{view Ember.Select
                 contentBinding="Minesweeper.minesweeperController.sizes"
                 selectionBinding="Minesweeper.minesweeperController.newBoardSize"
                 optionLabelPath="content.name"
                 optionValuePath="content.size"}}
-        {{/view}}
-        {{#view Em.Select
-                contentBinding="Minesweeper.gameOptionsController"
-                selectionBinding="Minesweeper.minesweeperController.newBoardSize"
+        {{view Ember.Select
+                contentBinding="Minesweeper.minesweeperController.difficulties"
+                selectionBinding="Minesweeper.minesweeperController.newBoardDifficulty"
                 optionLabelPath="content.name"
-                optionValuePath="content.size"}}
-        {{/view}}
+                optionValuePath="content.difficulty"}}
         {{#view Em.Button
                 target="Minesweeper.minesweeperController"
                 action="newGame"}}

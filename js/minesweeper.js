@@ -1,7 +1,6 @@
 /*
 * Author: Brian How
 */
-var Ember = Ember;
 Array.prototype.contains = function (obj) {
     "use strict";
     var i;
@@ -264,10 +263,20 @@ Minesweeper.Tile = Ember.Object.extend({
     }.property('hidden', 'flagged', 'containsBomb', 'bombTouchCount', 'peeking', 'exploded')
 });
 
+Minesweeper.gameBoardSize = Ember.Object.extend({
+    name: null,
+    size: null
+});
+Minesweeper.difficulty = Ember.Object.extend({
+    name: null,
+    difficulty: null
+});
+
 // controllers
 Minesweeper.minesweeperController = Ember.Object.create({
     board: Minesweeper.Board.create(),
-    newBoardSize: 8,
+    newBoardSize: null,
+    newBoardDifficulty: null,
     start: function () {
         "use strict";
         this.board.newGame(8, 10);
@@ -294,17 +303,16 @@ Minesweeper.minesweeperController = Ember.Object.create({
     },
     newGame: function () {
         "use strict";
-        this.get('board').newGame(8, 10);
+        this.get('board').newGame(this.get('newBoardSize').size, this.get('newBoardDifficulty').difficulty);
     },
-    sizes: Ember.ArrayProxy.create({content: [{name: 'Small (8x8)', size: 8},
-        {name: 'Medium (16x16)', size: 16},
-        {name: 'Large (32x32)', size: 32}]})
-});
-
-Minesweeper.gameOptionsController = Ember.ArrayController.create({
-    content: [Ember.Object.create({name: 'Small (8x8)', size: 8}),
-        Ember.Object.create({name: 'Small (8x8)', size: 16}),
-        Ember.Object.create({name: 'Small (8x8)', size: 16})]
+    sizes: Ember.ArrayProxy.create({content: [
+        Minesweeper.gameBoardSize.create({name: 'Small (8x8)', size: 8}),
+        Minesweeper.gameBoardSize.create({name: 'Medium (16x16)', size: 16}),
+        Minesweeper.gameBoardSize.create({name: 'Large (32x32)', size: 32})]}),
+    difficulties: Ember.ArrayProxy.create({content: [
+        Minesweeper.difficulty.create({name: 'Normal', difficulty: 1}),
+        Minesweeper.difficulty.create({name: 'Hard', difficulty: 2}),
+        Minesweeper.difficulty.create({name: 'Expert', difficulty: 3})]})
 });
 
 
@@ -332,5 +340,6 @@ Minesweeper.TileView = Ember.View.extend({
 Minesweeper.minesweeperController.start();
 var boardView = Minesweeper.boardView.create();
 $(document).ready(function () {
+    "use strict";
     boardView.append();
 });
