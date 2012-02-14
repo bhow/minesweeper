@@ -1,6 +1,11 @@
 /*
 * Author: Brian How
 */
+// hack for jslint
+var Ember = Ember;
+var $ = $;
+var document = document;
+
 Array.prototype.contains = function (obj) {
     "use strict";
     var i;
@@ -28,7 +33,7 @@ Minesweeper.Board = Ember.Object.extend({
     // initialize board
     newGame: function (size, bombCount) {
         "use strict";
-        var bombIndices, totalTiles, randomIndex, i, j, tile, position;
+        var bombIndices, totalTiles, randomIndex, i, j, tile, position, createNewTileArray;
         this.set('gameState', gameStateEnum.IN_PROGRESS);
         // generate bomb positions
         bombIndices = [];
@@ -42,17 +47,26 @@ Minesweeper.Board = Ember.Object.extend({
                 randomIndex = (Math.floor(Math.random() * totalTiles));
             } while (bombIndices.length < bombCount);
         }
+        createNewTileArray = (this.get('size') !== size); //only create new array if board size has changed
         this.set('size', size);
-        this.set('tileArray', []);
+        if (createNewTileArray) {
+            this.set('tileArray', []);
+        }
         this.set('bombTileArray', []);
         this.set('revealedTiles', []);
         this.set('bombsLeftToFlag', bombCount);
         // create tiles and set up bombs
         for (i = 0; i < size; i += 1) {
-            console.log("foo");
-            this.get('tileArray')[i] = [];
+            if (createNewTileArray) {
+                this.get('tileArray')[i] = [];
+            }
             for (j = 0; j < size; j += 1) {
-                tile = Minesweeper.Tile.create();
+                if (createNewTileArray) {
+                    tile = Minesweeper.Tile.create();
+                } else {
+                    tile = this.get('tileArray')[i][j];
+                    tile.reset();
+                }
                 position = (i * size) + j;
                 if (bombIndices.contains(position)) {
                     tile.set('containsBomb', true);
@@ -235,6 +249,18 @@ Minesweeper.Tile = Ember.Object.extend({
     bombTouchCount: 0,
     row: 0,
     column: 0,
+
+    reset: function () {
+        "use strict";
+        this.set('hidden', true);
+        this.set('flagged', false);
+        this.set('containsBomb', false);
+        this.set('peeking', false);
+        this.set('exploded', false);
+        this.set('bombTouchCount', 0);
+        this.set('row', 0);
+        this.set('column', 0);
+    },
 
     // computed css class for tile state
     style: function () {
