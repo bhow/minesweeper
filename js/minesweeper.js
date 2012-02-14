@@ -34,7 +34,6 @@ Minesweeper.Board = Ember.Object.extend({
         // generate bomb positions
         bombIndices = [];
         totalTiles = size * size;
-        //var totalTiles = size * size;
         while (bombIndices.length < bombCount) {
             randomIndex = (Math.floor(Math.random() * totalTiles));
             do {
@@ -76,7 +75,9 @@ Minesweeper.Board = Ember.Object.extend({
         var i, flaggedTiles;
         this.set('gameState', gameStateEnum.LOST);
         for (i = 0; i < this.get('bombTileArray').length; i += 1) {
-            this.get('bombTileArray')[i].set('exploded', true);
+            if (!this.get('bombTileArray')[i].get('exploded')) {
+                this.get('bombTileArray')[i].set('hidden', false);
+            }
         }
         //mark wrongly flagged tiles
         flaggedTiles = this.findFlaggedTiles();
@@ -102,6 +103,7 @@ Minesweeper.Board = Ember.Object.extend({
         this.get('revealedTiles').push(tile);
         if (tile.get('containsBomb')) {
             // boom - end game here
+            tile.set('exploded', true);
             this.loseGame();
             return;
         }
@@ -329,5 +331,6 @@ Minesweeper.TileView = Ember.View.extend({
 
 Minesweeper.minesweeperController.start();
 var boardView = Minesweeper.boardView.create();
-boardView.append();
-
+$(document).ready(function () {
+    boardView.append();
+});
