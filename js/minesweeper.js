@@ -269,7 +269,7 @@ Minesweeper.gameBoardSize = Ember.Object.extend({
 });
 Minesweeper.difficulty = Ember.Object.extend({
     name: null,
-    difficulty: null
+    baseBombs: null
 });
 
 // controllers
@@ -303,16 +303,19 @@ Minesweeper.minesweeperController = Ember.Object.create({
     },
     newGame: function () {
         "use strict";
-        this.get('board').newGame(this.get('newBoardSize').size, this.get('newBoardDifficulty').difficulty);
+        var difficultyFactor, difficulty;
+        difficultyFactor = (this.get('newBoardSize').size * this.get('newBoardSize').size) / 64; //base board is 8x8=64 tiles
+        difficulty = this.get('newBoardDifficulty').get('baseBombs') * difficultyFactor;
+        this.get('board').newGame(this.get('newBoardSize').size, difficulty);
     },
     sizes: Ember.ArrayProxy.create({content: [
         Minesweeper.gameBoardSize.create({name: 'Small (8x8)', size: 8}),
         Minesweeper.gameBoardSize.create({name: 'Medium (16x16)', size: 16}),
         Minesweeper.gameBoardSize.create({name: 'Large (32x32)', size: 32})]}),
     difficulties: Ember.ArrayProxy.create({content: [
-        Minesweeper.difficulty.create({name: 'Normal', difficulty: 1}),
-        Minesweeper.difficulty.create({name: 'Hard', difficulty: 2}),
-        Minesweeper.difficulty.create({name: 'Expert', difficulty: 3})]})
+        Minesweeper.difficulty.create({name: 'Normal', baseBombs: 10}),
+        Minesweeper.difficulty.create({name: 'Hard', baseBombs: 15}),
+        Minesweeper.difficulty.create({name: 'Expert', baseBombs: 20})]})
 });
 
 
