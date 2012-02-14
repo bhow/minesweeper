@@ -18,7 +18,7 @@ var Minesweeper = Ember.Application.create();
 
 // models
 Minesweeper.Board = Ember.Object.extend({
-    tileArray: null,
+    tileArray: [],
     size: 0,
     bombTileArray: null,
     revealedTiles: [],
@@ -49,6 +49,7 @@ Minesweeper.Board = Ember.Object.extend({
         this.set('bombsLeftToFlag', bombCount);
         // create tiles and set up bombs
         for (i = 0; i < size; i += 1) {
+            console.log("foo");
             this.get('tileArray')[i] = [];
             for (j = 0; j < size; j += 1) {
                 tile = Minesweeper.Tile.create();
@@ -260,7 +261,7 @@ Minesweeper.Tile = Ember.Object.extend({
         }
         numbers = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight"];
         return numbers[this.get('bombTouchCount')];
-    }.property('hidden', 'flagged', 'containsBomb', 'bombTouchCount', 'peeking', 'exploded')
+    }.property('hidden', 'flagged', 'containsBomb', 'bombTouchCount', 'peeking', 'exploded').cacheable(true)
 });
 
 Minesweeper.gameBoardSize = Ember.Object.extend({
@@ -322,7 +323,8 @@ Minesweeper.minesweeperController = Ember.Object.create({
 // views
 Minesweeper.boardView = Ember.View.extend({
     templateName: 'board-view',
-    boardBinding: 'Minesweeper.minesweeperController.board'
+    boardBinding: 'Minesweeper.minesweeperController.board',
+    tileArrayBinding: 'Minesweeper.minesweeperController.board.tileArray'
 });
 
 Minesweeper.TileView = Ember.View.extend({

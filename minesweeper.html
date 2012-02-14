@@ -36,11 +36,11 @@
             Bombs: {{board.bombsLeftToFlag}} 
         </div>
         <div class="board">
-            {{#each board.tileArray}}
+            {{#each tileArray}}
             <div class="row" oncontextmenu="javascript:return false;">
                 {{#each this}}
-                {{#view Minesweeper.TileView tileBinding="this" classBinding="tileCommonStyle tileStyle"}}
-                {{/view}}
+                    {{#view Minesweeper.TileView tileBinding="this" classBinding="tileCommonStyle tileStyle"}}
+                    {{/view}}
                 {{/each}}
             </div>
             {{/each}}
