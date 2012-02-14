@@ -186,7 +186,7 @@ Minesweeper.Board = Ember.Object.extend({
             return;
         }
         bombs = this.get('bombTileArray');
-        for (i = 0; i < this.bombTileArray.length; i += 1) {
+        for (i = 0; i < bombs.length; i += 1) {
             bombs[i].set('peeking', !bombs[i].get('peeking'));
         }
     },
