@@ -1,0 +1,71 @@
+body { 
+  /* text-align: center; */ 
+}
+div.row {
+  clear: left;
+}
+
+div.tile {
+  float: left;
+  padding: 32px 0px 0px 0px;
+  background: url(../images/minesweeper_tiles.jpg) no-repeat;
+  background-size: 128px 128px;
+  width: 32px;
+}
+
+div.hidden {
+  background-position: 0px 0px;
+}
+div.flagged {
+  background-position: -32px 0px;
+}
+div.bomb {
+  background-position: -64px 0px;
+}
+div.empty {
+  background-position: -96px 0px;
+}
+div.one {
+  background-position: 0px -32px;
+}
+div.two {
+  background-position: -32px -32px;
+}
+div.three {
+  background-position: -64px -32px;
+}
+div.four {
+  background-position: -96px -32px;
+}
+div.five {
+  background-position: 0px -64px;
+}
+div.six {
+  background-position: -32px -64px;
+}
+div.seven {
+  background-position: -64px -64px;
+}
+div.eight {
+  background-position: -96px -64px;
+}
+div.exploded {
+  background-position: 0px -96px;
+}
+div.wrongFlag {
+  background-position: -32px -96px;
+}
+
+
+div.status {
+  clear: left;
+}
+
+div.buttons {
+  margin: 10px 0px 0px 0px;
+  clear: left;
+}
+
+div.board {
+  text-align: center;
+}

@@ -1,56 +1,56 @@
 <!doctype html>
 <head>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script type="text/javascript" src="http://cloud.github.com/downloads/emberjs/ember.js/ember-0.9.4.min.js"></script>
-  <link rel="stylesheet" href="minesweeper.css" type="text/css" />
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/ember-0.9.4.min.js"></script>
+    <link rel="stylesheet" href="css/minesweeper.css" type="text/css" />
 </head>
 <body>
-  <script src="minesweeper.js"></script>
-  <h1>minesweeper</h1>
-  <script type="text/x-handlebars" data-template-name="menu-view">
-  </script>
-  <script type="text/x-handlebars" data-template-name="board-view">
-    {{#view Ember.Select
-       contentBinding="Minesweeper.minesweeperController.sizes"
-       selectionBinding="Minesweeper.minesweeperController.newBoardSize"
-       optionLabelPath="content.name"
-       optionValuePath="content.size"}}
-    {{/view}}
-    {{#view Em.Select
-       contentBinding="Minesweeper.gameOptionsController"
-       selectionBinding="Minesweeper.minesweeperController.newBoardSize"
-       optionLabelPath="content.name"
-       optionValuePath="content.size"}}
-    {{/view}}
-    {{#view Em.Button
-      target="Minesweeper.minesweeperController"
-      action="newGame"}}
-      New Game
-    {{/view}}
-    <div class="buttons">
-      {{#view Em.Button
-        target="Minesweeper.minesweeperController"
-        action="toggleCheat"}}
-        Toggle Cheat
-      {{/view}}
-      {{#view Em.Button
-        target="Minesweeper.minesweeperController"
-        action="validate"}}
-        Validate
-      {{/view}}
-      Bombs: {{board.bombsLeftToFlag}} 
-    </div>
-    <div class="board">
-    {{#each board.tileArray}}
-      <div class="row" oncontextmenu="javascript:return false;">
-        {{#each this}}
-          {{#view Minesweeper.TileView tileBinding="this" classBinding="tileCommonStyle tileStyle"}}
-          {{/view}}
-        {{/each}}
-      </div>
-    {{/each}}
-    </div>
-    <div class="status">{{board.gameState}}</div> 
-  </script>
+    <script src="js/minesweeper.js"></script>
+    <h1>minesweeper</h1>
+    <script type="text/x-handlebars" data-template-name="menu-view">
+    </script>
+    <script type="text/x-handlebars" data-template-name="board-view">
+        {{#view Ember.Select
+                contentBinding="Minesweeper.minesweeperController.sizes"
+                selectionBinding="Minesweeper.minesweeperController.newBoardSize"
+                optionLabelPath="content.name"
+                optionValuePath="content.size"}}
+        {{/view}}
+        {{#view Em.Select
+                contentBinding="Minesweeper.gameOptionsController"
+                selectionBinding="Minesweeper.minesweeperController.newBoardSize"
+                optionLabelPath="content.name"
+                optionValuePath="content.size"}}
+        {{/view}}
+        {{#view Em.Button
+                target="Minesweeper.minesweeperController"
+                action="newGame"}}
+        New Game
+        {{/view}}
+        <div class="buttons">
+            {{#view Em.Button
+                    target="Minesweeper.minesweeperController"
+                    action="toggleCheat"}}
+            Toggle Cheat
+            {{/view}}
+            {{#view Em.Button
+                    target="Minesweeper.minesweeperController"
+                    action="validate"}}
+            Validate
+            {{/view}}
+            Bombs: {{board.bombsLeftToFlag}} 
+        </div>
+        <div class="board">
+            {{#each board.tileArray}}
+            <div class="row" oncontextmenu="javascript:return false;">
+                {{#each this}}
+                {{#view Minesweeper.TileView tileBinding="this" classBinding="tileCommonStyle tileStyle"}}
+                {{/view}}
+                {{/each}}
+            </div>
+            {{/each}}
+        </div>
+        <div class="status">{{board.gameState}}</div> 
+    </script>
 </body>
 </html>
