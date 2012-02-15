@@ -1,5 +1,5 @@
 body { 
-  /* text-align: center; */ 
+  text-align: center;
 }
 div.row {
   clear: left;
@@ -67,5 +67,5 @@ div.buttons {
 }
 
 div.board {
-  text-align: center;
+  display: inline-block;
 }
