@@ -17,7 +17,7 @@ Array.prototype.contains = function (obj) {
     return false;
 };
 
-var gameStateEnum = {IN_PROGRESS: '', WON: 'You win! :)', LOST: 'You lose. :('};
+var gameStateEnum = {IN_PROGRESS: '', WON: 'You Win! :)', LOST: 'You Lose :('};
 
 var Minesweeper = Ember.Application.create();
 
@@ -106,7 +106,7 @@ Minesweeper.Board = Ember.Object.extend({
         if (this.get('gameState') !== gameStateEnum.IN_PROGRESS) {
             return;
         }
-        if (!tile.get('hidden') || tile.get('flagged')) {
+        if (!tile.get('hidden')) {
             return;
         }
         tile.set('hidden', false);
@@ -314,7 +314,9 @@ Minesweeper.minesweeperController = Ember.Object.create({
     },
     clickTile: function (tile) {
         "use strict";
-        this.get('board').revealTile(tile);
+        if (!tile.get('flagged')) {
+            this.get('board').revealTile(tile);
+        }
     },
     flagTile: function (tile) {
         "use strict";

@@ -22,6 +22,7 @@
                 action="newGame"}}
         New Game
         {{/view}}
+        <div class="status">{{board.gameState}}</div> 
         <div class="buttons">
             {{#view Em.Button
                     target="Minesweeper.minesweeperController"
@@ -33,7 +34,6 @@
                     action="validate"}}
             Validate
             {{/view}}
-            Bombs: {{board.bombsLeftToFlag}} 
         </div>
         <div class="board">
             {{#each tileArray}}
@@ -45,7 +45,7 @@
             </div>
             {{/each}}
         </div>
-        <div class="status">{{board.gameState}}</div> 
+        <div>Flags: {{board.bombsLeftToFlag}}</div>
     </script>
     <script src="js/minesweeper.js"></script>
 </body>

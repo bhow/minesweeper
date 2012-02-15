@@ -58,11 +58,11 @@ div.wrongFlag {
 
 
 div.status {
-  clear: left;
+  margin: 10px 0px 0px 0px;
 }
 
 div.buttons {
-  margin: 10px 0px 0px 0px;
+  margin: 10px 0px 10px 0px;
   clear: left;
 }
 
