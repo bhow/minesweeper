@@ -106,7 +106,7 @@ Minesweeper.Board = Ember.Object.extend({
         if (this.get('gameState') !== gameStateEnum.IN_PROGRESS) {
             return;
         }
-        if (!tile.get('hidden')) {
+        if (!tile.get('hidden') || tile.get('flagged')) {
             return;
         }
         tile.set('hidden', false);
