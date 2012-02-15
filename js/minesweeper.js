@@ -228,15 +228,22 @@ Minesweeper.Board = Ember.Object.extend({
     },
     validate: function () {
         "use strict";
-        var flaggedTiles, i;
+        var flaggedTiles, i, missedBombs;
         flaggedTiles = this.findFlaggedTiles();
+        missedBombs = [];
         for (i = 0; i < this.get('bombTileArray').length; i += 1) {
             if (!flaggedTiles.contains(this.get('bombTileArray')[i])) {
-                this.loseGame();
-                return;
+                missedBombs.push(this.get('bombTileArray')[i]);
             }
         }
-        this.set('gameState', gameStateEnum.WON);
+        if (missedBombs.length > 0) {
+            missedBombs.forEach(function (tile) {
+                tile.set('exploded', true);
+            });
+            this.loseGame();
+        } else {
+            this.set('gameState', gameStateEnum.WON);
+        }
     }
 });
 
